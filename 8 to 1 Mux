@@ -1,0 +1,41 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio 
+// Engineer: Dalen Ricks
+// 
+// Create Date: 08/30/2023 10:49:57 PM
+// Design Name: 8 to 1 Mux
+// Module Name: mux_8_to_1
+// Project Name: Lab 1
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: mux_2_to_1
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module mux_8_to_1#(parameter input_size = 8,
+                             select_size = 3)(
+    output out,
+    input [input_size - 1:0] in,
+    input [select_size - 1:0] sel    
+    );
+    
+    wire [3:0] layer1_out;
+    wire [1:0] layer2_out;
+    
+    mux_2_to_1 L11(layer1_out[0], in[1:0], sel[0]);
+    mux_2_to_1 L12(layer1_out[1], in[3:2], sel[0]);
+    mux_2_to_1 L13(layer1_out[2], in[5:4], sel[0]);
+    mux_2_to_1 L14(layer1_out[3], in[7:6], sel[0]);
+    mux_2_to_1 L21(layer2_out[0], layer1_out[1:0], sel[1]);
+    mux_2_to_1 L22(layer2_out[1], layer1_out[3:2], sel[1]);
+    mux_2_to_1 I1(out, layer2_out[1:0], sel[2]);
+    
+endmodule
