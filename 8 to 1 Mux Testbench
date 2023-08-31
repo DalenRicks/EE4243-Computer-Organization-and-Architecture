@@ -1,0 +1,45 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio 
+// Engineer: Dalen Ricks
+// 
+// Create Date: 08/30/2023 10:49:57 PM
+// Design Name: 8 to 1 Mux
+// Module Name: mux_8_to_1_tb
+// Project Name: Lab 1
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: mux_8_to_1
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module mux_8_to_1_tb();
+
+    reg[7:0] in;
+    reg[3:0] sel;
+    wire out;
+    
+    integer i;
+    
+    mux_8_to_1 uut(out, in, sel);
+    
+    initial begin
+        $monitor("in = %b, sel = %b, out = %b", in, sel, out);
+        
+        in = 8'b00110011;
+        sel = 4'b0000;
+        
+        for(i = 0; i < 9; i = i + 1) begin
+            #10
+            sel = sel + 1;
+        end
+    end
+
+endmodule
