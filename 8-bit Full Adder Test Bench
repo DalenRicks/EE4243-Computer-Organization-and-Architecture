@@ -1,0 +1,61 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 09/08/2023 12:30:01 AM
+// Design Name: 8-bit Full Adder Test Bench
+// Module Name: FA_8_tb
+// Project Name: 8-bit Full Adder
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: FA_8
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module FA_8_tb();
+parameter word_size = 8;
+
+wire [word_size - 1:0]s; 
+wire cout;
+reg [word_size - 1:0] a,b;
+reg cin;
+
+FA_8 UUT(s, cout, a, b, cin);
+
+//Initializing all the variables to 0
+initial begin
+    a = 8'h00;
+    b = 8'h00;
+    cin = 0;
+end
+initial begin
+    $monitor("Sum = %b; Cout = %b", s, cout);
+    
+    a = 8'b01011000;
+    b = 8'b00011001;
+    cin = 1'b0;
+    
+    #20
+    a = 8'b10001001;
+    b = 8'b11011001;
+    cin = 1'b1;
+    
+    #20
+    a = 8'b00110011;
+    b = 8'b00111100;
+    cin = 1'b1;
+    
+    #20
+    a = 8'b10110011;
+    b = 8'b01111100;
+    cin = 1'b0;
+end
+endmodule
