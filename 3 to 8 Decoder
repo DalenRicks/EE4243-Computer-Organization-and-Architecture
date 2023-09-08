@@ -1,0 +1,42 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 09/08/2023 12:30:01 AM
+// Design Name: 3 to 8 Decoder
+// Module Name: decoder3x8
+// Project Name: 3 to 8 Decoder
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module decoder3x8#(parameter    encode_word = 3,
+                                decode_word = 8)
+(
+    output reg [decode_word - 1:0]out,
+    input  [encode_word - 1:0]in  
+);
+
+always@(*) begin
+    case(in)
+        3'b000: out = 8'b00000001;
+        3'b001: out = 8'b00000010;
+        3'b010: out = 8'b00000100;
+        3'b011: out = 8'b00001000;
+        3'b100: out = 8'b00010000;
+        3'b101: out = 8'b00100000;
+        3'b110: out = 8'b01000000;
+        3'b111: out = 8'b10000000;             
+    endcase    
+end
+endmodule
