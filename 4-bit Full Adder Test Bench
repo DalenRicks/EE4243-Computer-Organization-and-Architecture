@@ -1,0 +1,61 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 09/08/2023 12:30:01 AM
+// Design Name: 4-bit Full Adder Test Bench
+// Module Name: FA_4_tb
+// Project Name: 8-bit Full Adder
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: FA_4
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module FA_4_tb();
+parameter word_size = 4;
+
+wire [word_size - 1:0]sum;
+wire carryOut;
+reg [word_size - 1:0] a, b;
+reg carryin;
+
+FA_4 UUT(sum, carryOut, a, b, carryin);
+
+//Initialize all variables to 0
+initial begin
+    a = 4'b0000;
+    b = 4'b0000;
+    carryin = 0;    
+end
+
+initial begin
+    $monitor("%d+%d = %d", a, b, sum);
+    
+    a = 4'b0001;
+    b = 4'b0001;
+    
+    #20
+    carryin = 1;
+    
+    #20
+    carryin = 0;
+    a = 4'b1000;
+    b = 4'b0010;
+    
+    #20
+    b = 4'b1000;
+    
+    #20
+    carryin = 1;   
+end
+
+endmodule
