@@ -1,0 +1,36 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 09/08/2023 12:30:01 AM
+// Design Name: 4-bit Full Adder
+// Module Name: FA_4
+// Project Name: 8-bit Full Adder
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: FA_1
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module FA_4#(parameter word_size = 4)(
+    output [word_size - 1:0]s, 
+    output cout,
+    input [word_size - 1:0] a,b,
+    input cin
+    );
+    
+    wire[2:0] carry;
+    
+    FA_1 U1(s[0], carry[0], a[0], b[0], cin);
+    FA_1 U2(s[1], carry[1], a[1], b[1], carry[0]);
+    FA_1 U3(s[2], carry[2], a[2], b[2], carry[1]);
+    FA_1 U4(s[3], cout, a[3], b[3], carry[2]);        
+endmodule
