@@ -1,0 +1,42 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 09/08/2023 12:30:01 AM
+// Design Name: 3 to 8 Decoder Test Bench
+// Module Name: decoder3x8
+// Project Name: 3 to 8 Decoder
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: decoder3x8
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module decoder3x8_tb();
+parameter   encode_word = 3,
+            decode_word = 8;
+
+wire [decode_word - 1:0]out;
+reg [encode_word - 1:0]in;
+
+integer i;
+
+decoder3x8 UUT(out, in);
+
+initial begin
+    in = 0;
+    
+    for(i = 0; i < 8; i = i + 1) begin
+            #10
+            in = in + 1;
+        end
+end
+endmodule
