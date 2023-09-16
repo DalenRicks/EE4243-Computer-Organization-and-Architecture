@@ -1,0 +1,57 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio 
+// Engineer: Dalen Ricks
+// 
+// Create Date: 09/16/2023 12:31:58 AM
+// Design Name: D Flip Flop
+// Module Name: D_FF
+// Project Name: D Flip Flop
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: D_FF
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module D_FF_tb();
+
+wire Q,Q_not;
+reg d, rst, clk;
+
+D_FF UUT(Q, Q_not, d, rst, clk);
+
+initial begin
+    clk = 1;
+    forever begin
+        #10
+        clk = ~clk;
+    end
+end
+
+initial begin
+    $monitor("Input = %b; Output = %b, Output Invert = %b", d, Q, Q_not);
+    
+    d = 0'b1;
+    rst = 0'b0;
+    
+    #10
+    d = 0'b0;
+    
+    #10
+    d = 0'b0;
+    
+    #30
+    d = 0'b1;
+    
+    #20
+    rst = 0'b1; 
+end
+
+endmodule
