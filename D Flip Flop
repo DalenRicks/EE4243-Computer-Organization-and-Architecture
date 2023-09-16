@@ -1,0 +1,38 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio 
+// Engineer: Dalen Ricks
+// 
+// Create Date: 09/16/2023 12:31:58 AM
+// Design Name: D Flip Flop
+// Module Name: D_FF
+// Project Name: D Flip Flop
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module D_FF(
+    output reg q, q_inv,
+    input d, rst, clk
+    );
+    
+    always@(posedge clk) begin
+        if(rst == 0'b1) begin
+            q       <= 0'b0;
+            q_inv   <= 0'b1;
+        end
+        else begin
+            q       <= d;
+            q_inv   <= ~d;
+        end
+    end
+endmodule
