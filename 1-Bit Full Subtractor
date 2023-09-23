@@ -1,0 +1,37 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 09/08/2023 12:30:01 AM
+// Design Name: 1-bit Full Subtractor
+// Module Name: full_sub_1
+// Project Name: 4-bit Full Subtractor
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module full_sub_1(
+    output d, bout,
+    input a,b,bin
+    );
+    
+    wire U2out, U3out, U4out, U5out, U6out;
+    
+    xor U1(d, a, b, bin);
+    and U2(U2out, b, ~bin);
+    and U3(U3out, ~b, bin);
+    or U4(U4out, U2out, U3out);
+    and U5(U5out, ~a, U4out);
+    and U6(U6out, b, bin);
+    or U7(bout, U6out, U5out);   
+endmodule
