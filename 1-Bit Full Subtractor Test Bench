@@ -1,0 +1,73 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 09/08/2023 12:30:01 AM
+// Design Name: 1-bit Full Subtractor Test Bench
+// Module Name: full_sub_1_tb
+// Project Name: 4-bit Full Subtractor
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: full_sub_1
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module full_sub_1_tb();
+
+wire diff, brwo;
+reg a,b, brwin;
+
+full_sub_1 UUT(diff, brwo, a, b, brwin);
+
+initial begin
+    $monitor("a = %d, b = %d, brwin = %d | diff = %d, brwo = %d", a, b, brwin, diff, brwo);
+    
+    a = 0;
+    b = 0;
+    brwin = 0;
+    
+    #20
+    a = 0;
+    b = 0;
+    brwin = 1;
+    
+    #20
+    a = 0;
+    b = 1;
+    brwin = 0;
+    
+    #20
+    a = 0;
+    b = 1;
+    brwin = 1;
+    
+    #20
+    a = 1;
+    b = 0;
+    brwin = 0;
+    
+    #20
+    a = 1;
+    b = 0;
+    brwin = 1;
+    
+    #20
+    a = 1;
+    b = 1;
+    brwin = 0;
+    
+    #20
+    a = 1;
+    b = 1;
+    brwin = 1;
+end
+
+endmodule
