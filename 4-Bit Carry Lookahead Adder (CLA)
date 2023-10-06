@@ -1,0 +1,39 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio  
+// Engineer: Dalen Ricks
+// 
+// Create Date: 10/06/2023 12:39:39 PM
+// Design Name: 4-bit Carry Lookaead Adder (CLA)
+// Module Name: CLA_4
+// Project Name: 4-bit Carry Lookahead Adder (CLA)
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: PFA, CLL
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module CLA_4#(parameter word_size = 4)(
+    output [word_size - 1:0] sum,
+    output cout,
+    input [word_size - 1:0] a,b,
+    input cin
+    );
+    
+    wire [word_size - 1:0] prop, gen, carry;  
+    
+    assign cout = carry[3];
+    
+    PFA U0(sum[0], prop[0], gen[0], a[0], b[0], cin);
+    PFA U1(sum[1], prop[1], gen[1], a[1], b[1], carry[0]);
+    PFA U2(sum[2], prop[2], gen[2], a[2], b[2], carry[1]);
+    PFA U3(sum[3], prop[3], gen[3], a[3], b[3], carry[2]);
+    CLL U4(carry, prop, gen, cin);    
+endmodule
