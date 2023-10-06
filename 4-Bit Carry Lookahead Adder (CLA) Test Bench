@@ -1,0 +1,61 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio  
+// Engineer: Dalen Ricks
+// 
+// Create Date: 10/06/2023 12:39:39 PM
+// Design Name: 4-bit Carry Lookaead Adder Test Bench(CLA)
+// Module Name: CLA_4_tb
+// Project Name: 4-bit Carry Lookahead Adder (CLA)
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: CLA_4
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module CLA_4_tb();
+parameter word_size = 4;
+
+wire [word_size - 1:0] sum;
+wire cout;
+reg [word_size - 1:0] a,b;
+reg cin;
+
+CLA_4 UUT(sum, cout, a, b, cin);
+
+//Initialize all variables to 0
+initial begin
+    a = 4'b0000;
+    b = 4'b0000;
+    cin = 0;    
+end
+
+initial begin
+    $monitor("%d+%d = %d; Carry in = %d", a, b, sum, cin);
+    
+    a = 4'b0001;
+    b = 4'b0001;
+    
+    #20
+    cin = 1;
+    
+    #20
+    cin = 0;
+    a = 4'b1000;
+    b = 4'b0010;
+    
+    #20
+    b = 4'b0111;
+    
+    #20
+    cin = 1;   
+end
+
+endmodule
