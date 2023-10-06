@@ -1,0 +1,31 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: University of Texas at San Antonio  
+// Engineer: Dalen Ricks
+// 
+// Create Date: 10/06/2023 12:39:39 PM
+// Design Name: Partial Full Adder
+// Module Name: PFA
+// Project Name: 4-bit Carry Lookahead Adder (CLA)
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module PFA(
+    output sum, prop, gen,
+    input a,b,cin
+    );
+    
+    xor U1(prop, a, b);
+    xor U2(sum, prop, cin);
+    and U3(gen, a, b);    
+endmodule
