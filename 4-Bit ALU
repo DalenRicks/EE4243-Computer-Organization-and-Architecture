@@ -1,0 +1,55 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: The University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 10/13/2023 11:30:41 AM
+// Design Name: 4-Bit ALU
+// Module Name: ALU_4
+// Project Name: 4-Bit ALU
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module ALU_4#(parameter word_size = 4,
+                        control_word = 3)(
+    output reg [word_size - 1:0] out,
+    output reg cout,
+    input [word_size - 1:0] a, b,
+    input [control_word - 1:0] control,
+    input cin
+);
+
+    //Op Code Encoding    
+    parameter   ADD = 3'b000,
+    SUB = 3'b001,
+    OR = 3'b010,
+    AND = 3'b011,
+    SHL = 3'b100,
+    SHR = 3'b101,
+    ROL = 3'b110,
+    ROR = 3'b111;
+
+
+    always@(*) begin
+        case(control)
+            ADD: {cout, out} <= a + b + cin;
+            SUB: {cout, out} <= a - b - cin;
+            OR: {cout, out} <= a | b;
+            AND: {cout, out} <= a & b;
+            SHL: {cout, out} <= {a[word_size - 2:0], 1'b0};
+            SHR: {cout, out} <= {1'b0, a[word_size - 1:1]};
+            ROL: {cout, out} <= {a[word_size - 2:0], a[word_size - 1]};
+            ROR: {cout, out} <= {a[0], a[word_size - 1:1]};
+        endcase
+    end
+endmodule
