@@ -1,0 +1,39 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: The University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 10/20/2023 07:32:46 PM
+// Design Name: T Flip Flop
+// Module Name: T_FF
+// Project Name: T Flip Flop
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module T_FF(
+    output q, q_n,
+    input t, rst, clk
+);
+    reg q;
+    
+    assign q_n = ~q;
+    
+    always @(posedge clk) begin
+        if(rst == 1)
+            q <= 0;
+        else if(!t)
+            q <= q;
+        else if(t)
+            q <= ~q;
+    end
+endmodule
