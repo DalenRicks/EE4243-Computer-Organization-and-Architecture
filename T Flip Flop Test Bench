@@ -1,0 +1,55 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: The University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 10/20/2023 07:32:46 PM
+// Design Name: T Flip Flop Test Bench
+// Module Name: T_FF_tb
+// Project Name: T Flip Flop Test Bench
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module T_FF_tb();
+
+wire q,qn;
+reg t,rst,clk;
+
+T_FF UUT(q, qn, t, rst, clk);
+
+initial begin
+    clk = 0;
+    forever begin
+        #10
+        clk <= ~clk;
+    end
+end
+
+initial begin
+    $monitor("t:%d, rst:%d | q:%d, q':%d", t, rst, q, qn);
+    t = 0;
+    rst = 1;
+    
+    #20
+    t = 1;
+    rst = 0;
+    
+    #60
+    rst = 1;
+    t = 0;
+    
+    #20
+    t = 1;
+end
+
+endmodule
