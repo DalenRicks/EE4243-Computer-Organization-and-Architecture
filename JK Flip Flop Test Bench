@@ -1,0 +1,58 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: The University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 10/20/2023 07:32:46 PM
+// Design Name: JK Flip Flop Test Bench
+// Module Name: JK_FF_tb
+// Project Name: JK Flip Flop Test Bench
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module JK_FF_tb();
+
+wire q,qn;
+reg j,k,clk;
+
+JK_FF UUT(q, qn, j, k, clk);
+
+initial begin
+    clk = 0;
+    forever begin
+        #10
+        clk <= ~clk;
+    end
+end
+
+initial begin
+    $monitor("j:%d, k:%d | q:%d, q':%d", j, k, q, qn);
+    //set
+    j = 1;
+    k = 0;
+    
+    #20
+    //hold
+    j = 0;
+    
+    #20
+    //clear
+    j = 1;
+    k = 1;
+    
+    #20
+    //toggle
+    k = 0;
+end
+
+endmodule
