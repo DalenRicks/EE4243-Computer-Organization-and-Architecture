@@ -1,0 +1,35 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: The University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 10/28/2023 11:58:30 AM
+// Design Name: 4-Bit Johnson Ring Counter
+// Module Name: Johnson_Ring_Ctr_4
+// Project Name: Ring Counters
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: D_FF
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Johnson_Ring_Ctr_4(
+    output [3:0] out,
+    input rst, clk
+);
+
+    wire [3:0] q_n_int;
+    wire set_int;
+
+    D_FF U0 (out[0], q_n_int[0], out[1], set_int, rst, clk);
+    D_FF U1 (out[1], q_n_int[1], out[2], set_int, rst, clk);
+    D_FF U2 (out[2], q_n_int[2], out[3], set_int, rst, clk);
+    D_FF U3 (out[3], q_n_int[3], q_n_int[0], rst, set_int, clk);
+endmodule
