@@ -1,0 +1,45 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: The University of Texas at San Antonio
+// Engineer: Dalen Ricks
+// 
+// Create Date: 10/28/2023 11:58:30 AM
+// Design Name: 4-Bit Ring Counter Test Bench
+// Module Name: Ring_Ctr_4_tb
+// Project Name: Ring Counters
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: Ring_Ctr_4
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Ring_Ctr_4_tb();
+
+wire [3:0] out;
+reg rst, clk;
+
+Ring_Ctr_4 UUT(out, rst, clk);
+
+initial begin
+    clk = 0;
+    forever begin
+       #5
+       clk <= ~clk; 
+    end 
+end
+
+initial begin
+    $monitor("output: %b, reset = %b", out, rst);
+    rst = 1;
+    
+    #10
+    rst = 0;
+end
+endmodule
