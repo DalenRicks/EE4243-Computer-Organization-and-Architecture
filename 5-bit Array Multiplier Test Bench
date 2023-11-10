@@ -1,0 +1,51 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: The University of Texas at San Antonio 
+// Engineer: Dalen Ricks
+// 
+// Create Date: 11/10/2023 01:15:12 PM
+// Design Name: 5x5 Array Multiplier Test Bench
+// Module Name: Array_Multiplier_tb
+// Project Name: 5x5 Array Multiplier
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: Array_Multiplier
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Array_Multiplier_tb();
+
+wire [9:0] product;
+reg [4:0] a, b;
+
+Array_Multiplier UUT(product, a, b);
+
+initial begin
+    $monitor("%d * %d = %d", a, b, product);
+    a = 5'd25;
+    b = 5'd25;
+    
+    #10;
+    a = 5'd25;
+    b = 5'd25;
+    
+    #10;
+    a = 5'd25;
+    b = 5'd10;
+    
+    #10;
+    a = 5'd27;
+    b = 5'd31;
+    
+    #10;
+    a = 5'd23;
+    b = 5'd8;
+end
+endmodule
