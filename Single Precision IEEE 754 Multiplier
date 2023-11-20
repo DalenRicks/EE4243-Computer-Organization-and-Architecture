@@ -1,0 +1,85 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: The University of Texas at San Antonio 
+// Engineer: Dalen Ricks
+// 
+// Create Date: 11/19/2023 06:32:59 PM
+// Design Name: Float Multiplier
+// Module Name: float_mult
+// Project Name: Single Precision Floating Point Multiplier 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module float_mult(
+    output reg [31:0] result,
+    input [31:0] a, b
+);
+    //Instantiating wires to sort information
+    wire signA, signB;
+    wire [7:0] ExpA, ExpB;
+    wire [23:0] MantA, MantB;
+    
+    reg signR;
+    reg [7:0] ExpR;    
+    reg [22:0] MantR;
+    reg [47:0] MantResult;
+
+    //Assigning information from A
+    assign signA = a[31];
+    assign ExpA = a[30:23];
+    assign MantA = {1'b1, a[22:0]};
+
+    //Assigning information from B
+    assign signB = b[31];
+    assign ExpB = b[30:23];
+    assign MantB = {1'b1, b[22:0]};
+
+    always @(*)begin
+        //Computing result sign value
+        signR = signA ^ signB;
+
+        /*Checking for special cases in IEEE 754 Encoding*/
+        //if A or B is Zero
+        if((ExpA == 8'h00 && MantA == 23'h000000)||(ExpB == 8'h00 && MantB == 23'h000000))begin
+            result = {signR, 8'h00, 23'h000000};
+        end
+        //if A or B is infinity
+        else if((ExpA == 8'hFF && MantA == 23'h000000)||(ExpB == 8'hFF && MantB == 23'h00000))begin
+            result = {signR, 8'hFF, 23'h000000};
+        end
+        //if A or B is NaN
+        else if((ExpA == 8'hFF && MantA != 23'h000000)||(ExpB == 8'hFF && MantB != 23'h00000))begin
+            result = {signR, 8'hFF, 23'h000001};
+        end
+        //Non-Special Case Computation
+        else begin
+            //Multiplying Mantissas
+            MantResult = MantA * MantB;
+            
+            //Checking if Result Mantissa is Normalized
+            //Mantissa Denormalized
+            if(MantResult[47]) begin
+                //Adding 1 to Result Exponent
+                ExpR = ExpA + ExpB - 8'd126;
+                MantR = MantResult[46:24];
+            end
+            //Mantissa Normalized
+            else begin
+                ExpR = ExpA + ExpB - 8'd127;
+                MantR = MantResult[45:23];
+            end
+            //Compiling Results
+            result = {signR, ExpR, MantR};
+        end
+    end
+endmodule
