@@ -1,0 +1,47 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: The University of Texas at San Antonio 
+// Engineer: Dalen Ricks
+// 
+// Create Date: 11/19/2023 06:32:59 PM
+// Design Name: Float Multiplier Test Bench
+// Module Name: float_mult_tb
+// Project Name: Single Precision Floating Point Multiplier 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: float_mult
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module float_mult_tb();
+
+wire [31:0] result;
+reg [31:0] a,b;
+
+float_mult UUT (result, a, b);
+
+initial begin
+    $monitor("%h * %h = %h", a, b, result);
+    a = 32'h40200000; //2.5
+    b = 32'h3FA00000; //1.25
+    
+    #20
+    a = 32'h4048F5C2; //3.14
+    b = 32'h4048F5C2; //3.14
+    
+    #20
+    a = 32'h41C00000; //24
+    b = 32'h42000000; //32
+    
+    #20
+    a = 32'h40B9999A; //5.8
+    b = 32'h40866666; //4.2
+end
+endmodule
